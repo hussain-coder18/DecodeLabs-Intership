@@ -1,28 +1,37 @@
 # DecodeLabs-Intership
-hi
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+// Simulate Temperature and Humidity Sensor Data
+float temperature;
+float humidity;
 
-int main() {
-    int i;
-    float temperature;
+void setup() {
+  Serial.begin(9600);
 
-    // Initialize random number generator
-    srand(time(0));
+  // Random seed
+  randomSeed(analogRead(0));
 
-    printf("Sensor Data Collection Simulation\n");
-    printf("---------------------------------\n");
+  Serial.println("Temperature\tHumidity");
+}
 
-    // Collect 10 sensor readings
-    for(i = 1; i <= 10; i++) {
+void loop() {
 
-        // Generate temperature between 20°C and 40°C
-        temperature = 20 + (rand() % 21);
+  // Generate simulated values
+  temperature = random(200, 401) / 10.0;   // 20.0°C to 40.0°C
+  humidity = random(300, 901) / 10.0;      // 30% to 90%
 
-        printf("Reading %d : Temperature = %.2f °C\n",
-               i, temperature);
-    }
+  // Display values
+  Serial.print("Temp: ");
+  Serial.print(temperature);
+  Serial.print(" C\t");
 
-    return 0;
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+
+  // Simulated logging format
+  Serial.print("LOG,");
+  Serial.print(temperature);
+  Serial.print(",");
+  Serial.println(humidity);
+
+  delay(2000);
 }
